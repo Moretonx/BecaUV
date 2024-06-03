@@ -1,36 +1,43 @@
-#version: "3"
 version: "3.9"
 
 services:
   sql-server:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: sql-server
     restart: always
     environment:
-      SA_PASSWORD: "TuSuperPassword123" # Cambia esto por tu propia contraseña
-      ACCEPT_EULA: "Y" # nombre BD
-    mem_limit: 2g # Ajusta la cantidad según tus necesidades
+      SA_PASSWORD: prueba
+      ACCEPT_EULA: prueba
     networks:
       - red_privada
     volumes:
-      - sql-server-data:/data/db
+      - sql-server-data:/var/opt/mssql
+
   nginx-proxy:
-    # comando para configurar Nginx
-    command: "sh -c 'echo \"server_tokens off; proxy_connect_timeout 300; proxy_send_timeout 300; proxy_read_timeout 90m; send_timeout 300;client_max_body_size 1024M;\" > /etc/nginx/conf.d/my_proxy.conf; forego start -r'"
-    restart: always               # reiniciar siempre
-    image: jwilder/nginx-proxy    # imagen desde docker HUB
-    container_name: nginx-proxy   # nombre del contenedor
-    ports:                        # Asignacion del puerto 80 al proxy
-     - "80:80"
-     - "443:443"
-    volumes:                      # Entrega información de de Docker 
-     - /var/run/docker.sock:/tmp/docker.sock:ro
-  backend:  
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    command: ["forego", "start", "-r"]
+    environment:
+      - SERVER_TOKENS=off
+      - PROXY_CONNECT_TIMEOUT=300
+      - PROXY_SEND_TIMEOUT=300
+      - PROXY_READ_TIMEOUT=90m
+      - SEND_TIMEOUT=300
+      - CLIENT_MAX_BODY_SIZE=1024M
+
+  backend:
     build:
       context: ./backend
       dockerfile: Dockerfile.backend
     restart: always
     ports:
-      - "0.0.0.0:4000:4000/tcp"  # Mapeo para IPv4 (cambiar puerto 80)
+      - "0.0.0.0:4000:4000/tcp"  # Mapeo para IPv4
     depends_on:
       - sql-server
     networks:
@@ -44,18 +51,14 @@ services:
     restart: always
     ports:
       - "0.0.0.0:4200:4200"  # Mapeo para IPv4
- 
     networks:
       - red_proxy
       - red_privada
 
-networks:   
-  default:
-    external:
-      name: nginx-proxy    # Definir redes
-  red_proxy:               # Nombre de una red
-    external:              # Indica que es una red externa al docker-compose
-      name: nginx-proxy    # Nombre de la Red de uso publico entre Docker
+networks:
+  red_proxy:
+    external: true
+    name: nginx-proxy
   red_privada:
     driver_opts:
       com.docker.network.enable_ipv6: "true"
