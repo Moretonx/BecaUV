@@ -2,16 +2,33 @@ version: "3.9"
 
 services:
   sql-server:
-    image: mcr.microsoft.com/mssql/server:2017-latest
+    image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: sql-server
-    restart: always
+    # restart: always
     environment:
-      SA_PASSWORD: prueba
-      ACCEPT_EULA: prueba
+      SA_PASSWORD: "M4sK@2025!"
+      ACCEPT_EULA: "Y"
+      MSSQL_DATA_DIR: /var/opt/mssql/data
+      MSSQL_LOG_DIR: /var/opt/mssql/log
+      MSSQL_BACKUP_DIR: /var/opt/mssql/backup
     networks:
       - red_privada
+    ports:
+      - "1434:1433"
     volumes:
       - sql-server-data:/var/opt/mssql
+      - ./backup:/var/opt/mssql/backup
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./entrypoint.sh:/entrypoint.sh:ro
+    entrypoint: ["/bin/bash", "/entrypoint.sh"]
+    user: "0:0"  # Run as root to ensure proper permissions
+    #  - ./backups:/var/opt/mssql/backups
+    #command: >
+    #  /bin/bash -c "
+    #  /opt/mssql/bin/sqlservr & 
+    #  sleep 20 && 
+    #  /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'BECAS_UV' -Q 'RESTORE FILELISTONLY FROM DISK = \"/var/opt/mssql/backups/BECASUV.bak\"'
+    #  "
 
   nginx-proxy:
     image: jwilder/nginx-proxy
