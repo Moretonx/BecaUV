@@ -1,0 +1,27 @@
+FROM mcr.microsoft.com/mssql/server:2019-latest
+
+ENV ACCEPT_EULA=Y
+
+# Cambiar a root para evitar problemas de permisos
+USER root
+
+# Corregir permisos antes de la actualización
+RUN mkdir -p /var/lib/apt/lists/partial && chmod 777 /var/lib/apt/lists /var/lib/apt/lists/partial
+
+# Instalar herramientas necesarias
+RUN apt-get update && apt-get install -y curl gnupg2 apt-transport-https \
+    && curl -s https://packages.microsoft.com/keys/microsoft.asc | tee /usr/share/keyrings/microsoft.asc \
+    && echo "deb [signed-by=/usr/share/keyrings/microsoft.asc] https://packages.microsoft.com/ubuntu/20.04/prod focal main" | tee /etc/apt/sources.list.d/msprod.list \
+    && apt-get update \
+    && apt-get install -y mssql-tools unixodbc-dev \
+    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> /etc/bash.bashrc \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Copiar el entrypoint.sh dentro del contenedor y dar permisos de ejecución
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Asegurar que el usuario correcto ejecute el contenedor
+USER 0:0
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
