@@ -1,17 +1,30 @@
 #!/bin/bash
 set -e
 
-# Inicia SQL Server en segundo plano
-/opt/mssql/bin/sqlservr &
+# Install curl and gnupg if not already installed
+apt-get update
+apt-get install -y curl gnupg
 
-# Esperar a que SQL Server esté listo
-sleep 30s
-
-# Ejecutar el script de inicialización si existe
-if [ -f /docker-entrypoint-initdb.d/init.sql ]; then
-    echo "Ejecutando script de inicialización..."
-    /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "$SA_PASSWORD" -i /docker-entrypoint-initdb.d/init.sql
+# Install SQL Server tools if not already installed
+if ! command -v sqlcmd &> /dev/null
+then
+    echo "Installing SQL Server tools..."
+    curl -s https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+    curl -s https://packages.microsoft.com/config/ubuntu/20.04/prod.list | tee /etc/apt/sources.list.d/msprod.list
+    apt-get update
+    apt-get install -y mssql-tools unixodbc-dev
+    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+    source ~/.bashrc
 fi
 
-# Mantener el contenedor corriendo
-wait
+# Start SQL Server
+/opt/mssql/bin/sqlservr &
+
+# Wait for SQL Server to start
+sleep 30s
+
+# Run the setup script
+/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -i /docker-entrypoint-initdb.d/init.sql
+
+# Keep container running
+tail -f /dev/null

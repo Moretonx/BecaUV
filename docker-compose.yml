@@ -2,11 +2,11 @@ version: "3.9"
 
 services:
   sql-server:
-    build:
-      context: .
-      dockerfile: Dockerfile.sqlserver
+    image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: sql-server
     # restart: always
+    #ports:
+    #  - "1434:1433"
     environment:
       SA_PASSWORD: "M4sK@2025!"
       ACCEPT_EULA: "Y"
@@ -15,8 +15,6 @@ services:
       MSSQL_BACKUP_DIR: /var/opt/mssql/backup
     networks:
       - red_privada
-    ports:
-      - "1434:1433"
     volumes:
       - sql-server-data:/var/opt/mssql
       - ./backup:/var/opt/mssql/backup
@@ -24,13 +22,7 @@ services:
       - ./entrypoint.sh:/entrypoint.sh:ro
     entrypoint: ["/bin/bash", "/entrypoint.sh"]
     user: "0:0"  # Run as root to ensure proper permissions
-    #  - ./backups:/var/opt/mssql/backups
-    #command: >
-    #  /bin/bash -c "
-    #  /opt/mssql/bin/sqlservr & 
-    #  sleep 20 && 
-    #  /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'BECAS_UV' -Q 'RESTORE FILELISTONLY FROM DISK = \"/var/opt/mssql/backups/BECASUV.bak\"'
-    #  "
+
 
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -50,6 +42,7 @@ services:
       - SEND_TIMEOUT=300
       - CLIENT_MAX_BODY_SIZE=1024M
 
+
   backend:
     build:
       context: ./backend
@@ -63,6 +56,7 @@ services:
       - red_proxy
       - red_privada
       
+      
   frontend:
     build:
       context: ./frontend
@@ -74,9 +68,10 @@ services:
       - red_proxy
       - red_privada
 
+
 networks:
   red_proxy:
-    external: true
+    external: false
     name: nginx-proxy
   red_privada:
     driver_opts:
