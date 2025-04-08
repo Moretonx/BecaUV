@@ -22,4 +22,3 @@ EXPOSE 4200
 
 # Inicia el servidor web
 CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]
-

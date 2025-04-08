@@ -1,19 +1,26 @@
-import express from 'express'
-import config from './config'
-import becasRoutes from './routes/becas.routes'
+import express from 'express';
+import cors from 'cors';
+import becasRoutes from './routes/becas.routes.js';
 
-const cors = require('cors')
+const app = express();
+const PORT = process.env.PORT || 4000;
 
-const server = express()
+// Middlewares
+app.use(cors({
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true
+}));
 
-server.set('port', config.port)
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-server.use(cors({origin: config.frontend}))
+// Rutas
+app.use('/api', becasRoutes);
 
-//middlewares
-server.use(express.json());
-server.use(express.urlencoded({extended: false}));
+// Test route
+app.get('/test', (req, res) => {
+    res.json({ message: 'Server is running' });
+});
 
-server.use(becasRoutes)
-
-export default server
+export { app, PORT };

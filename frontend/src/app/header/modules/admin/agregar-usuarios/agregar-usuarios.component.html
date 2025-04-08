@@ -1,76 +1,80 @@
 <div class="col-md-4 agregar">
-    <div class="card">
-        <div class="card-body">
-            <form class="row" #adminForm="ngForm" (ngSubmit)="agregarUsuario(adminForm)">
+  <div class="card">
+      <div class="card-body">
+          <form class="row" #adminForm="ngForm" (ngSubmit)="agregarUsuario(adminForm)">
 
-              <input type="hidden" name="id" [(ngModel)]="adminService.selectUser.userID">
+            <input type="hidden" name="id" [(ngModel)]="adminService.selectUser.id">
 
-                <div class="mb-3">
-                  <label for="validation1" class="form-label">Usuario</label>
-                  <input 
-                    type="text" 
-                    class="form-control" 
-                    name="usuario" 
-                    id="validation1" 
-                    placeholder="Nombre de Usuario"
-                    [(ngModel)]="adminService.selectUser.usuario"
-                  required>
-                </div>
+              <div class="mb-3">
+                <label for="validation1" class="form-label">Usuario</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  name="usuario" 
+                  id="validation1" 
+                  placeholder="Nombre de Usuario"
+                  [(ngModel)]="adminService.selectUser.usuario"
+                required>
+              </div>
 
-                <div class="mb-3">
-                  <label for="validation2" class="form-label">Casino</label>
-                  <input 
-                    type="text" 
-                    class="form-control" 
-                    name="casino" 
-                    id="validation2" 
-                    placeholder="Nombre del casino" 
-                    [(ngModel)]="adminService.selectUser.casino"
-                  required>
-                </div>
+              <!-- Mantenemos el campo 'casino' en el formulario -->
+              <div class="mb-3">
+                <label for="validation2" class="form-label">Casino</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  name="casino" 
+                  id="validation2" 
+                  placeholder="Nombre del casino" 
+                  [(ngModel)]="adminService.selectUser.casino"
+                required>
+              </div>
 
-                <div class="mb-3">
-                  <label for="validation3" class="form-label">Contraseña</label>
-                  <input 
-                    type="password" 
-                    class="form-control" 
-                    name="password" 
-                    id="validation3" 
-                    placeholder="Nueva contraseña" 
-                    [(ngModel)]="adminService.selectUser.password"
-                  required>
-                </div>
+              <div class="mb-3">
+                <label for="validation3" class="form-label">Contraseña</label>
+                <input 
+                  type="password" 
+                  class="form-control" 
+                  name="password" 
+                  id="validation3" 
+                  placeholder="Nueva contraseña" 
+                  [(ngModel)]="adminService.selectUser.password"
+                required>
+              </div>
 
-                <div class="mb-3">
-                  <label>Rol de Usuario</label>
-                  <br>
-                  <input 
-                    type="radio"
-                    name="role"
-                    id="validation4"
-                    value="Usuario"
-                    [(ngModel)]="adminService.selectUser.role"
-                    checked
-                    >
-                    <label for="validation4" class="form-label" style="font-weight: lighter; color: black; margin-left: 1%;">Usuario</label>
+              <div class="mb-3">
+                <label>Rol de Usuario</label>
+                <br>
+                <input 
+                  type="radio"
+                  name="role"
+                  id="validation4User"
+                  value="Usuario"
+                  [(ngModel)]="adminService.selectUser.role"
+                  checked
+                  >
+                  <label for="validation4User" class="form-label" style="font-weight: lighter; color: black; margin-left: 1%;">Usuario</label>
 
-                  <input style="margin-left: 4%;"
-                    type="radio" 
-                    name="role"
-                    id="validation4"
-                    value="Administrador"
-                    [(ngModel)]="adminService.selectUser.role"
-                    >
-                    <label for="validation4" class="form-label" style="font-weight: lighter; color: black; margin-left: 1%;">Administrador</label>
-                </div>
+                <input style="margin-left: 4%;"
+                  type="radio" 
+                  name="role"
+                  id="validation4Admin"
+                  value="Administrador"
+                  [(ngModel)]="adminService.selectUser.role"
+                  >
+                  <label for="validation4Admin" class="form-label" style="font-weight: lighter; color: black; margin-left: 1%;">Administrador</label>
+              </div>
 
-                <div class="col-12" style="text-align: center;">
-                    <button class="btn btn-primary" type="submit" [disabled]="adminForm.invalid">
+              <div class="col-12" style="text-align: center;">
+                  <button class="btn btn-primary" type="submit" [disabled]="adminForm.invalid || loading">
+                  <span *ngIf="loading">Procesando...</span>
+                  <span *ngIf="!loading">
                     Agregar usuario
                     <mat-icon style="vertical-align: middle;">save_alt</mat-icon>
-                    </button>
-                </div>                      
-            </form>
-        </div>
-    </div>
+                  </span>
+                  </button>
+              </div>                      
+          </form>
+      </div>
+  </div>
 </div>

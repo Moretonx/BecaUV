@@ -1,23 +1,26 @@
-import sql from 'mssql'
-import config from '../config'
+import sql from 'mssql';
+import config from '../config.js';
 
-const dbSettings = {
-    user: config.user,
-    password: config.password,
-    server: config.server,
-    database: config.database,
-    options: {
-        encrypt: true, // for azure
-        trustServerCertificate: true // change to true for local dev / self-signed certs
-    },
-};
+let pool = null;
 
-export async function getConnection() {
+export const getConnection = async () => {
     try {
-        const pool = await sql.connect(dbSettings);
+        if (pool) {
+            return pool;
+        }
+        
+        console.log('Configuración de conexión:', {
+            server: config.dbConfig.server,
+            database: config.dbConfig.database
+        });
+
+        pool = await sql.connect(config.dbConfig);
+        console.log('Conexión exitosa a la base de datos');
         return pool;
     } catch (error) {
-        console.error(error);
+        console.error('Error de conexión:', error);
+        throw new Error('Error al conectar con la base de datos: ' + error.message);
     }
-}
-export {sql};
+};
+
+export { sql };

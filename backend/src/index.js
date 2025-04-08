@@ -1,5 +1,9 @@
-import server from './server'
+import { app, PORT } from './server.js';
 
-server.listen(server.get('port'))
-
-console.log('server on port', server.get('port'))
+try {
+    app.listen(PORT, () => {
+        console.log(`Servidor corriendo en puerto ${PORT}`);
+    });
+} catch (error) {
+    console.error('Error al iniciar el servidor:', error);
+}

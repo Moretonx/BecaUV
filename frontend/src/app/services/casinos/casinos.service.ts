@@ -1,6 +1,8 @@
+// src/app/services/casino/casino.service.ts
+
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Casino} from '../../models/casino';
+import { HttpClient } from '@angular/common/http';  // <-- Ya no necesitamos HttpHeaders
+import { Casino } from '../../models/casino';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,7 +12,7 @@ export class CasinoService {
 
   constructor(private http: HttpClient) { }
 
-  url_api = environment.backend+'/casinos'
+  url_api = environment.backend + '/api/casinos';  // <-- Asegúrate de que la ruta incluya /api/
 
   selectCasino: Casino = {
     nombre: '',
@@ -19,26 +21,20 @@ export class CasinoService {
   casinos!: Casino[];
 
   getCasinos() {
-    return this.http.get<Casino[]>(this.url_api, this.createHeaders());
+    return this.http.get<Casino[]>(this.url_api);  // <-- Ya no necesitamos pasar headers
   }
 
   addCasino(casino: Casino) {
-    return this.http.post(this.url_api, casino, this.createHeaders());
+    return this.http.post(this.url_api, casino);  // <-- Ya no necesitamos pasar headers
   }
 
   updateCasino(casino: Casino) {
-    return this.http.put(`${this.url_api}/${casino.id}`, casino, this.createHeaders());
+    return this.http.put(`${this.url_api}/${casino.id}`, casino);  // <-- Ya no necesitamos pasar headers
   }
 
   deleteCasino(id: string) {
-    return this.http.delete(`${this.url_api}/${id}`, this.createHeaders());
+    return this.http.delete(`${this.url_api}/${id}`);  // <-- Ya no necesitamos pasar headers
   }
-
-  createHeaders() {
-    return {
-      headers: new HttpHeaders({
-        'Authorization': localStorage.getItem('token_login')!
-      })
-    }
-  }
+  
+  // Eliminar el método createHeaders ya que no lo necesitamos más
 }

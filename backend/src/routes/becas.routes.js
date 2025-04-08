@@ -27,6 +27,7 @@ router.patch('/canjes/:rut/:idCasino', canjeAlumno);
 
 //endpoint login
 router.post('/login', loginUsuario);
+
 //endpoint admin
 router.get('/admin', checkUser, verUsuarios);
 router.get('/admin/:id', checkUser, verUsuarioId);

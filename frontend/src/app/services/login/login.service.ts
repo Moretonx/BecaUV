@@ -1,33 +1,28 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {User} from '../../models/user';
-import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  // Actualiza la URL para incluir /api/
+  private apiUrl = 'http://localhost:4000/api/login';
 
   constructor(private http: HttpClient) { }
 
-  url_api = environment.backend+'/login'
-
-  loginUser(user: User) {
-    return this.http.post(this.url_api, user);
+  loginUser(credentials: {usuario: string, password: string}): Observable<any> {
+    console.log('Enviando credenciales:', credentials);
+    return this.http.post(this.apiUrl, credentials);
   }
 
-  //Oculta elementos del menú si no está logueado
-  isLogged(): boolean{
+  isLogged(): boolean {
     return localStorage.getItem('token_login') ? true : false;
   }
 
-  //Oculta elementos y botones si no es Administrador
-  rolesAccess(): boolean{
+  rolesAccess(): boolean {
     let role = localStorage.getItem('role');
-    if (role === 'Administrador') {
-      return true;
-    } else {
-      return false;
-    }
+    return role === 'Administrador';
   }
 }

@@ -1,7 +1,10 @@
+// src/app/services/admin/admin.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {User} from '../../models/user';
+import { HttpClient } from '@angular/common/http';
+import { User } from '../../models/user';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,35 +13,33 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  url_api = environment.backend+'/admin'
+  url_api = `${environment.backend}/api/admin`;
 
   selectUser: User = {
-    userID: '',
+    id: 0,  // Inicializamos con 0 en lugar de string vacío
     usuario: '',
-    casino: '',
     password: '',
-    role: ''
+    role: 'Usuario',
+    casino: '' // Mantenemos este campo para la compatibilidad con el frontend
   };
-  user!: User[];
 
-  getUser() {
-    return this.http.get<User[]>(this.url_api, this.createHeaders());
+  getUser(): Observable<User[]> {
+    console.log('Solicitando usuarios desde:', this.url_api);
+    return this.http.get<User[]>(this.url_api);
   }
 
-  addUser(user: User) {
-    return this.http.post(this.url_api, user, this.createHeaders());
+  addUser(user: any): Observable<any> {
+    console.log('Enviando datos de usuario al servidor:', user);
+    return this.http.post(this.url_api, user);
   }
 
-  deleteUser(id: string) {
-    return this.http.delete(`${this.url_api}/${id}`, this.createHeaders());
+  deleteUser(id: string | number): Observable<any> {
+    console.log(`Enviando solicitud DELETE a: ${this.url_api}/${id}`);
+    return this.http.delete(`${this.url_api}/${id}`).pipe(
+      tap(
+        response => console.log('Respuesta exitosa de eliminación:', response),
+        error => console.error('Error en eliminación:', error)
+      )
+    );
   }
-
-  createHeaders() {
-    return {
-      headers: new HttpHeaders({
-        'Authorization': localStorage.getItem('token_login')!
-      })
-    }
-  }
-
 }
