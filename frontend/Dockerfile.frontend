@@ -1,6 +1,6 @@
 #dockerfile.backend
 # Usa una imagen de Node.js como base 
-FROM node:14.17.3
+FROM node:16
 
 # Establece el directorio de trabajo en /app
 WORKDIR /app

@@ -114,17 +114,9 @@ services:
 
       echo 'Insertando usuarios predeterminados...' &&
       /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P TuPasswordSeguro123 -d becas_uv -Q '
-      IF NOT EXISTS (SELECT * FROM users WHERE usuario = \"Ad\")
-      BEGIN
-          INSERT INTO users (usuario, password, role, casino) VALUES (\"Ad\", \"A5\", \"Administrador\", \"Casino1\");
-      END
       IF NOT EXISTS (SELECT * FROM users WHERE usuario = \"Administrador\")
       BEGIN
-          INSERT INTO users (usuario, password, role, casino) VALUES (\"Administrador\", \"$$2a$$10$$mj1yog7/mo6YnbhNhRWw7.xl7ZLDD0fu0g/ZxV9icb3FjXSxwR12q\", \"admin\", \"Casino1\");
-      END
-      IF NOT EXISTS (SELECT * FROM users WHERE usuario = \"admin\")
-      BEGIN
-          INSERT INTO users (usuario, password, role, casino) VALUES (\"admin\", \"12345\", \"Administrador\", \"Casino1\");
+          INSERT INTO users (usuario, password, role, casino) VALUES (\"Administrador\", \"$2b$10$GCjHUE6tloultpDc7PPkqufYj8slF3D17wtYf.af0GbQjjH0NoFgC\", \"Administrador\", \"Sin Casino\");
       END
       ' &&
 

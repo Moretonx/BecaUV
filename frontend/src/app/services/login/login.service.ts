@@ -22,7 +22,7 @@ export class LoginService {
   }
 
   rolesAccess(): boolean {
-    let role = localStorage.getItem('role');
+    let role = localStorage.getItem('role')?.trim();
     return role === 'Administrador';
   }
 }

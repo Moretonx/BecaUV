@@ -16,7 +16,7 @@ export const permisosGuard = () => {
 export const permisosAdmin = () => {
   const router = inject(Router);
   //Si no es Administrador, no permite el acceso a ciertas rutas
-  if (localStorage.getItem('role') === 'Administrador') {
+  if (localStorage.getItem('role')?.trim() === 'Administrador') {
     return true;
   } else {
     router.navigate(['/'])

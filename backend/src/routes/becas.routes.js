@@ -15,7 +15,7 @@ router.delete('/alumnos/:id', checkUser, borrarAlumno);
 router.put('/alumnos/:id', checkUser, editarAlumno);
 
 //endpoint casinos
-router.get('/casinos', checkToken, verCasinos);
+router.get('/casinos', verCasinos);
 router.get('/casinos/:id', checkUser, verCasinoId);
 router.post('/casinos', checkUser, agregarCasino);
 router.delete('/casinos/:id', checkUser, borrarCasino);

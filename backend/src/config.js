@@ -6,7 +6,7 @@ export default {
     dbConfig: {
         user: process.env.DB_USER || 'sa',
         password: process.env.DB_PASSWORD || 'TuPasswordSeguro123',
-        server: process.env.DB_SERVER || 'sqlserver', // Nombre del servicio en docker-compose
+        server: process.env.DB_SERVER || 'sql-server', // Nombre del servicio en docker-compose
         database: process.env.DB_DATABASE || 'becas_uv',
         // config.js
         apikey: 'BecasUVSecretKey',  // Esta es tu clave secreta

@@ -49,7 +49,7 @@ export class VerLoginComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error en login:', err);
-          this.error('Error al conectar con el servidor');
+          this.error();
         }
       });
     }

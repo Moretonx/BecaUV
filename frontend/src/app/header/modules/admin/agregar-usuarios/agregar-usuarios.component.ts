@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin/admin.service';
+import { CasinoService } from '../../../../services/casinos/casinos.service';
+
 
 @Component({
   selector: 'app-agregar-usuarios',
@@ -11,15 +13,18 @@ import { AdminService } from 'src/app/services/admin/admin.service';
 })
 export class AgregarUsuariosComponent implements OnInit {
   loading = false;
+  data: any[] = [];
 
   constructor(
     public adminService: AdminService,
+    public casinoService: CasinoService,
     private router: Router,
     private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.resetForm();
+    this.verCasinos();
   }
 
   resetForm() {
@@ -30,6 +35,15 @@ export class AgregarUsuariosComponent implements OnInit {
       role: 'Usuario',
       casino: ''
     };
+  }
+
+  verCasinos() {
+    this.casinoService.getCasinos().subscribe(
+        res => {
+          this.data = res;
+        },
+        err => console.log(err)
+    )
   }
 
   agregarUsuario(form: NgForm) {

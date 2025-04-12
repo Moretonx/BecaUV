@@ -40,20 +40,22 @@ export class UsuariosComponent implements OnInit {
 
   borrarUsuario(id: number | string) {
     console.log('Intentando eliminar usuario con ID:', id);
-    
-    // Verificar que id no sea undefined o null
-    if (!id) {
-      console.error('Error: ID de usuario es undefined o null');
+  
+    // Verificar que el ID sea un número válido (asegúrate que `id` es numérico)
+    const userId = typeof id === 'string' ? parseInt(id) : id;
+  
+    if (isNaN(userId)) {
+      console.error('Error: ID de usuario no válido');
       this.mostrarError('Error al eliminar: ID de usuario no válido');
       return;
     }
-    
-    if (confirm('¿Desea eliminar este usuario?')){
-      this.adminService.deleteUser(id.toString()).subscribe({
+  
+    if (confirm('¿Desea eliminar este usuario?')) {
+      this.adminService.deleteUser(userId).subscribe({
         next: (res) => {
           console.log('Usuario eliminado:', res);
           this.msgDelete();
-          this.verUsuarios();
+          this.verUsuarios(); // Actualiza la lista de usuarios
         },
         error: (err) => {
           console.error('Error al eliminar usuario:', err);
@@ -62,6 +64,7 @@ export class UsuariosComponent implements OnInit {
       });
     }
   }
+  
 
   msgDelete(){
     this.snackBar.open('El usuario ha sido eliminado correctamente', '', {

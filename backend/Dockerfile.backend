@@ -1,4 +1,3 @@
-# filepath: /Users/rodrigomontenegro/Desktop/moreti2/BecaUV/backend/Dockerfile
 FROM node:16
 
 WORKDIR /usr/src/app

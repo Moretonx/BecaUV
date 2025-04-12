@@ -20,15 +20,17 @@
               <!-- Mantenemos el campo 'casino' en el formulario -->
               <div class="mb-3">
                 <label for="validation2" class="form-label">Casino</label>
-                <input 
-                  type="text" 
-                  class="form-control" 
+                <select 
+                  class="form-select" 
                   name="casino" 
                   id="validation2" 
-                  placeholder="Nombre del casino" 
                   [(ngModel)]="adminService.selectUser.casino"
-                required>
+                  required>
+                  <option value="" disabled selected>Seleccione un casino</option>
+                  <option *ngFor="let casino of data" [value]="casino.nombre">{{ casino.nombre }}</option>
+                </select>
               </div>
+              
 
               <div class="mb-3">
                 <label for="validation3" class="form-label">Contraseña</label>

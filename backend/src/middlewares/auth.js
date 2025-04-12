@@ -54,7 +54,7 @@ export const checkUser = (req, res, next) => {
         
         // Verificar si el usuario es admin (asumiendo que el rol está en el payload)
         if (payload.role.toLowerCase() !== 'admin' && 
-        payload.role.toLowerCase() !== 'administrador') {
+        payload.role.toLowerCase().trim() !== 'administrador') {
             return res.status(403).json({
                 success: false,
                 message: 'Acceso denegado: se requiere rol de administrador'

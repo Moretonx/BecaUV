@@ -1,12 +1,12 @@
 import { getConnection, sql } from '../database/connection.js';
-import { hashPassword } from '../middlewares/hash';
+import { hashPassword, verifyPassword } from '../middlewares/hash';
 import { createToken } from '../middlewares/auth.js';
 
 // Login de usuario
 export const loginUsuario = async (req, res) => {
     try {
         console.log('Recibiendo solicitud de login:', req.body);
-        
+        let isMatch = false;
         const { usuario, password } = req.body;
         // Validación básica
         if (!usuario || !password) {
@@ -27,8 +27,9 @@ export const loginUsuario = async (req, res) => {
             });
         }
         const user = result.recordset[0];
+        isMatch = await verifyPassword(password, user.password);
         
-        if (password !== user.password) {
+        if (!isMatch) {
             return res.status(401).json({
                 success: false,
                 message: 'Contraseña incorrecta'
@@ -56,7 +57,7 @@ export const loginUsuario = async (req, res) => {
 export const verUsuarios = async (req, res) => {
    try {
        const pool = await getConnection();
-       const result = await pool.request().query('SELECT * FROM users WHERE id != 1;');
+       const result = await pool.request().query('SELECT * FROM users WHERE userID != 1;');
 
        res.json(result.recordset);
    } catch (error) {
@@ -90,12 +91,11 @@ export const verUsuarioId = async (req, res) => {
    }
 };
 
-// Agregar nuevo usuario - MODIFICADO para arreglar el error de columna 'casino'
+// Agregar nuevo usuario
 export const agregarUsuario = async (req, res) => {
-   let { usuario, password, role } = req.body;
-   const { casino } = req.body; // Mantener para validación pero no usarlo en la consulta
+   let { usuario, password, role, casino } = req.body;
 
-   // Validación de campos (mantener la validación para evitar cambios en el frontend)
+   // Validación de campos
    if (!usuario || !password || !role || !casino) {
        return res.status(400).json({
            success: false,
@@ -112,8 +112,8 @@ export const agregarUsuario = async (req, res) => {
            .input("usuario", sql.VarChar, usuario)
            .input("password", sql.VarChar, password)
            .input("role", sql.VarChar, role)
-           // Eliminamos .input("casino", sql.VarChar, casino) y no lo incluimos en la consulta SQL
-           .query('INSERT INTO users (usuario, password, role) VALUES (@usuario, @password, @role)');
+           .input("casino", sql.VarChar, casino)
+           .query('INSERT INTO users (usuario, password, role, casino) VALUES (@usuario, @password, @role, @casino)');
 
        res.status(201).json({
            success: true,
@@ -132,6 +132,13 @@ export const agregarUsuario = async (req, res) => {
 // Borrar usuario - CORREGIDO
 export const borrarUsuario = async (req, res) => {
     const { id } = req.params;
+    const idParsed = parseInt(id);
+    if (isNaN(idParsed)) {
+        return res.status(400).json({
+            success: false,
+            message: 'El ID debe ser un número válido',
+        });
+}
  
     try {
         console.log('Intentando borrar usuario con ID:', id);
@@ -148,8 +155,8 @@ export const borrarUsuario = async (req, res) => {
         
         // Usamos 'id' en lugar de 'userID'
         const result = await pool.request()
-            .input('id', sql.Int, id) // Usar sql.Int porque id es numérico según la tabla
-            .query('DELETE FROM users WHERE id = @id');
+            .input('id', sql.Int, idParsed) // Usar sql.Int porque id es numérico según la tabla
+            .query('DELETE FROM users WHERE userID = @id');
             
         console.log('Resultado de borrado:', result);
         
