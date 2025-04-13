@@ -116,7 +116,7 @@ services:
       /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P TuPasswordSeguro123 -d becas_uv -Q '
       IF NOT EXISTS (SELECT * FROM users WHERE usuario = \"Administrador\")
       BEGIN
-          INSERT INTO users (usuario, password, role, casino) VALUES (\"Administrador\", \"$2b$10$GCjHUE6tloultpDc7PPkqufYj8slF3D17wtYf.af0GbQjjH0NoFgC\", \"Administrador\", \"Sin Casino\");
+          INSERT INTO users (usuario, password, role, casino) VALUES (\"Administrador\", \"$2b$10$GCjHUE6tl/oultpDc7PPkqufYj8slF3D17wt/Yf.af0GbQjjH0NoFgC\", \"Administrador\", \"Sin Casino\");
       END
       ' &&
 
