@@ -5,7 +5,7 @@ import { createToken } from '../middlewares/auth.js';
 // Login de usuario
 export const loginUsuario = async (req, res) => {
     try {
-        console.log('Recibiendo solicitud de login:', req.body);
+        //console.log('Recibiendo solicitud de login:', req.body);
         let isMatch = false;
         const { usuario, password } = req.body;
         // Validación básica
@@ -19,7 +19,7 @@ export const loginUsuario = async (req, res) => {
         const result = await pool.request()
             .input('usuario', sql.VarChar, usuario)
             .query('SELECT * FROM users WHERE usuario = @usuario');
-        console.log('Resultado de la consulta:', result);
+        //console.log('Resultado de la consulta:', result);
         if (!result.recordset || result.recordset.length === 0) {
             return res.status(404).json({
                 success: false,
@@ -141,7 +141,7 @@ export const borrarUsuario = async (req, res) => {
 }
  
     try {
-        console.log('Intentando borrar usuario con ID:', id);
+        //console.log('Intentando borrar usuario con ID:', id);
         
         // Verificar si el ID es válido
         if (!id) {
@@ -158,7 +158,7 @@ export const borrarUsuario = async (req, res) => {
             .input('id', sql.Int, idParsed) // Usar sql.Int porque id es numérico según la tabla
             .query('DELETE FROM users WHERE userID = @id');
             
-        console.log('Resultado de borrado:', result);
+        //console.log('Resultado de borrado:', result);
         
         // Verificar si se eliminó alguna fila
         if (result.rowsAffected && result.rowsAffected[0] > 0) {

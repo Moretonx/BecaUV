@@ -23,7 +23,9 @@ export class AgregarCasinosComponent implements OnInit {
   agregarCasino(form: NgForm){
 
       this.casinoService.addCasino(form.value).subscribe(
-        res => console.log(res),
+        res => {
+          //console.log(res)
+        },
         err => console.error(err)
       );
       form.reset();

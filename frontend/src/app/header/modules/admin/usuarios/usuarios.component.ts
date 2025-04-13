@@ -28,7 +28,7 @@ export class UsuariosComponent implements OnInit {
     
     this.adminService.getUser().subscribe({
       next: (res: User[]) => {
-        console.log('Usuarios recibidos:', res);
+        //console.log('Usuarios recibidos:', res);
         this.dataSource.data = res;
       },
       error: (err: any) => {
@@ -39,7 +39,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   borrarUsuario(id: number | string) {
-    console.log('Intentando eliminar usuario con ID:', id);
+    //console.log('Intentando eliminar usuario con ID:', id);
   
     // Verificar que el ID sea un número válido (asegúrate que `id` es numérico)
     const userId = typeof id === 'string' ? parseInt(id) : id;
@@ -53,7 +53,7 @@ export class UsuariosComponent implements OnInit {
     if (confirm('¿Desea eliminar este usuario?')) {
       this.adminService.deleteUser(userId).subscribe({
         next: (res) => {
-          console.log('Usuario eliminado:', res);
+          //console.log('Usuario eliminado:', res);
           this.msgDelete();
           this.verUsuarios(); // Actualiza la lista de usuarios
         },

@@ -50,7 +50,7 @@ export class AlumnoComponent implements OnInit {
     if (confirm('¿Desea eliminar este alumno?')){
       this.alumnoService.deleteAlumno(id).subscribe(
         (res) => {
-          console.log(res);
+          //console.log(res);
         },
         (err) => console.error(err) 
         );

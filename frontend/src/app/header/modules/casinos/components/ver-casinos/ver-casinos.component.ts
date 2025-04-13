@@ -38,7 +38,7 @@ export class VerCasinosComponent implements OnInit {
     if (confirm('¿Desea eliminar este casino?')){
       this.casinoService.deleteCasino(id).subscribe(
         (res) => {
-          console.log(res);
+          //console.log(res);
         },
         (err) => console.error(err) 
       );

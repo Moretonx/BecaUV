@@ -77,7 +77,7 @@ services:
           CREATE TABLE users (
               id INT IDENTITY(1,1) PRIMARY KEY,
               usuario VARCHAR(50) NOT NULL,
-              password VARCHAR(255) NOT NULL,
+              password TEXT NOT NULL,
               role VARCHAR(20) NOT NULL,
               casino VARCHAR(50) NOT NULL
           );

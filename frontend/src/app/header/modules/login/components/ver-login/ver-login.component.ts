@@ -31,13 +31,13 @@ export class VerLoginComponent implements OnInit {
   ingresar() {
     if (this.form.valid) {
       const credentials = this.form.value;
-      console.log('Intentando login con:', credentials);
+      //console.log('Intentando login con:', credentials);
       
       // En ver-login.component.ts - función ingresar
 
       this.loginService.loginUser(credentials).subscribe({
         next: (response: any) => {
-          console.log('Respuesta del servidor:', response);
+          //console.log('Respuesta del servidor:', response);
           if (response.success) {
             // Guardar el token correctamente
             localStorage.setItem('token_login', response.token);

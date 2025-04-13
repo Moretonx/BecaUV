@@ -6,7 +6,7 @@ export const verCasinos = async (req, res) => {
         const pool = await getConnection();
         const result = await pool.request().query('SELECT * FROM casinos');
         
-        console.log('Casinos encontrados:', result.recordset);
+        //console.log('Casinos encontrados:', result.recordset);
         res.json(result.recordset);
     } catch (error) {
         console.error('Error al obtener casinos:', error);
@@ -34,7 +34,7 @@ export const verCasinoId = async (req, res) => {
             });
         }
         
-        console.log('Casino encontrado:', result.recordset[0]);
+        //console.log('Casino encontrado:', result.recordset[0]);
         res.json(result.recordset[0]);
     } catch (error) {
         console.error('Error al obtener casino por ID:', error);
@@ -69,7 +69,7 @@ export const agregarCasino = async (req, res) => {
                 SELECT SCOPE_IDENTITY() AS id;
             `);
             
-        console.log('Casino agregado:', result);
+        //console.log('Casino agregado:', result);
         res.status(201).json({
             success: true,
             message: 'Casino agregado exitosamente',
@@ -108,7 +108,7 @@ export const borrarCasino = async (req, res) => {
             });
         }
         
-        console.log('Casino eliminado:', result);
+        //console.log('Casino eliminado:', result);
         res.json({
             success: true,
             message: 'Casino eliminado exitosamente'
@@ -169,7 +169,7 @@ export const editarCasino = async (req, res) => {
             });
         }
         
-        console.log('Casino actualizado:', result);
+        //console.log('Casino actualizado:', result);
         res.json({
             success: true,
             message: 'Casino actualizado exitosamente'

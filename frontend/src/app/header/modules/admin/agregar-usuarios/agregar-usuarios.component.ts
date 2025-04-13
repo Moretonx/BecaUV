@@ -49,11 +49,11 @@ export class AgregarUsuariosComponent implements OnInit {
   agregarUsuario(form: NgForm) {
     this.loading = true;
     
-    console.log("Datos del formulario a enviar:", form.value);
+    //console.log("Datos del formulario a enviar:", form.value);
 
     this.adminService.addUser(form.value).subscribe({
       next: (res) => {
-        console.log('Usuario creado:', res);
+        //console.log('Usuario creado:', res);
         form.reset();
         this.resetForm();
         this.router.navigate(['/admin']);
