@@ -54,8 +54,10 @@ export class UsuariosComponent implements OnInit {
       this.adminService.deleteUser(userId).subscribe({
         next: (res) => {
           //console.log('Usuario eliminado:', res);
-          this.msgDelete();
-          this.verUsuarios(); // Actualiza la lista de usuarios
+          setTimeout(() => {
+            this.verUsuarios(); // Actualiza la lista de usuarios
+            this.msgDelete();
+          }, 500);
         },
         error: (err) => {
           console.error('Error al eliminar usuario:', err);

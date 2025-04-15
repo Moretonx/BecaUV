@@ -21,42 +21,47 @@ ngOnInit(): void {
 }
 
 agregarAlumno(form: NgForm){
-if(form.value.id){
-this.alumnoService.updateAlumno(form.value).subscribe(
-res => console.log(res),
-err => console.error(err)
-);
-form.reset();
-this.router.navigate(['/']);
-this.msgEdit();
-} else {
-this.alumnoService.addAlumno(form.value).subscribe(
-res => console.log(res),
-err => console.error(err)
-);
-form.reset();
-this.msgAdd();
-}
+    if(form.value.id){
+        this.alumnoService.updateAlumno(form.value).subscribe(
+        res => console.log(res),
+        err => console.error(err)
+        );
+        form.reset();
+        setTimeout(() => {
+            this.router.navigate(['/']);
+            this.msgEdit();
+          }, 500);
+    } else {
+        this.alumnoService.addAlumno(form.value).subscribe(
+        res => console.log(res),
+        err => console.error(err)
+        );
+        form.reset();
+        setTimeout(() => {
+            this.router.navigate(['/']);
+            this.msgAdd();
+          }, 500);
+    }
 }
 
 msgEdit(){
-this._snackBar.open('Alumno editado correctamente', '', {
-duration: 4000,
-horizontalPosition: 'center',
-verticalPosition: 'bottom',
-});
+    this._snackBar.open('Alumno editado correctamente', '', {
+    duration: 4000,
+    horizontalPosition: 'center',
+    verticalPosition: 'bottom',
+    });
 }
 
 msgAdd(){
-this._snackBar.open('Alumno agregado correctamente', '', {
-duration: 4000,
-horizontalPosition: 'center',
-verticalPosition: 'bottom'
-});
+    this._snackBar.open('Alumno agregado correctamente', '', {
+    duration: 4000,
+    horizontalPosition: 'center',
+    verticalPosition: 'bottom'
+    });
 }
 
 public getCurrentUrl(): number {
-if (this.router.url === '/editar-alumno') return 1;
-return 0;
-};
+    if (this.router.url === '/editar-alumno') return 1;
+    return 0;
+    };
 }

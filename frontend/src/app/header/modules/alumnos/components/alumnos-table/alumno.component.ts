@@ -54,8 +54,10 @@ export class AlumnoComponent implements OnInit {
         },
         (err) => console.error(err) 
         );
-      this.msgDelete();
-      this.verAlumnos();
+        setTimeout(() => {
+          this.verAlumnos();
+          this.msgDelete();
+        }, 500);
     }
   }
 

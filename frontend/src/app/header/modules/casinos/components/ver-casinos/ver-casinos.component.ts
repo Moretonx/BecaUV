@@ -42,8 +42,10 @@ export class VerCasinosComponent implements OnInit {
         },
         (err) => console.error(err) 
       );
-      this.msgDelete();
-      this.verCasinos();
+      setTimeout(() => {
+        this.verCasinos();
+        this.msgDelete();
+      }, 500);
     }
   }
 
@@ -51,7 +53,8 @@ export class VerCasinosComponent implements OnInit {
     this.snackBar.open('El Casino se ha eliminado correctamente', '', {
       duration: 3000,
       horizontalPosition: 'center',
-      verticalPosition: 'top'
+      verticalPosition: 'top',
+      panelClass: ['custom-snackbar']
     });
   }
 

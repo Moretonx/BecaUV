@@ -56,8 +56,10 @@ export class AgregarUsuariosComponent implements OnInit {
         //console.log('Usuario creado:', res);
         form.reset();
         this.resetForm();
-        this.router.navigate(['/admin']);
-        this.msgAdd();
+        setTimeout(() => {
+          this.router.navigate(['/admin']);
+          this.msgAdd();
+        }, 500);
         this.loading = false;
       },
       error: (err) => {
@@ -88,8 +90,8 @@ export class AgregarUsuariosComponent implements OnInit {
     this._snackBar.open(message, 'Cerrar', {
       duration: 5000,
       horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: ['error-snackbar']
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar']
     });
   }
 }

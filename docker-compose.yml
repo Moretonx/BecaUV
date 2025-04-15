@@ -75,11 +75,11 @@ services:
       IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = \"users\")
       BEGIN
           CREATE TABLE users (
-              id INT IDENTITY(1,1) PRIMARY KEY,
+              userID INT IDENTITY(1,1) PRIMARY KEY,
               usuario VARCHAR(50) NOT NULL,
               password TEXT NOT NULL,
               role VARCHAR(20) NOT NULL,
-              casino VARCHAR(50) NOT NULL
+              casino TEXT NOT NULL
           );
           PRINT \"Tabla users creada.\";
       END
@@ -91,7 +91,7 @@ services:
       BEGIN
           CREATE TABLE casinos (
               id INT IDENTITY(1,1) PRIMARY KEY,
-              nombre VARCHAR(MAX) NULL,
+              nombre TEXT NULL,
               cantidad INT NULL
           );
       END
@@ -103,7 +103,7 @@ services:
       BEGIN
           CREATE TABLE alumnos (
               id INT IDENTITY(1,1) PRIMARY KEY,
-              nombre VARCHAR(70) NULL,
+              nombre VARCHAR(100) NULL,
               rut VARCHAR(20) NULL,
               cantidad INT NULL,
               canje INT NULL,
@@ -116,7 +116,7 @@ services:
       /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P TuPasswordSeguro123 -d becas_uv -Q '
       IF NOT EXISTS (SELECT * FROM users WHERE usuario = \"Administrador\")
       BEGIN
-          INSERT INTO users (usuario, password, role, casino) VALUES (\"Administrador\", \"$2b$10$GCjHUE6tl/oultpDc7PPkqufYj8slF3D17wt/Yf.af0GbQjjH0NoFgC\", \"Administrador\", \"Sin Casino\");
+          INSERT INTO users (usuario, password, role, casino) VALUES (\"Administrador\", \"$$2b$$10$$GCjHUE6tloultpDc7PPkqufYj8slF3D17wtYf.af0GbQjjH0NoFgC\", \"Administrador\", \"Sin Casino\");
       END
       ' &&
 

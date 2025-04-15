@@ -53,8 +53,7 @@ export const checkUser = (req, res, next) => {
         const payload = jwt.verify(token, SECRET_KEY);
         
         // Verificar si el usuario es admin (asumiendo que el rol está en el payload)
-        if (payload.role.toLowerCase() !== 'admin' && 
-        payload.role.toLowerCase().trim() !== 'administrador') {
+        if (payload.role.toLowerCase().trim() !== 'administrador') {
             return res.status(403).json({
                 success: false,
                 message: 'Acceso denegado: se requiere rol de administrador'

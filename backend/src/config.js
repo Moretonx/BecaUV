@@ -4,10 +4,10 @@ dotenv.config();
 export default {
     port: process.env.PORT || 4000,
     dbConfig: {
-        user: process.env.DB_USER || 'sa',
-        password: process.env.DB_PASSWORD || 'TuPasswordSeguro123',
-        server: process.env.DB_SERVER || 'sqlserver', // Nombre del servicio en docker-compose
-        database: process.env.DB_DATABASE || 'becas_uv',
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        server: process.env.DB_SERVER, // Nombre del servicio en docker-compose
+        database: process.env.DB_DATABASE,
         // config.js
         apikey: 'BecasUVSecretKey',  // Esta es tu clave secreta
         options: {

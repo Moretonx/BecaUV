@@ -28,16 +28,21 @@ export class AgregarCasinosComponent implements OnInit {
         },
         err => console.error(err)
       );
+      setTimeout(() => {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/casinos']);
+          this.msgAdd();
+        });
+      }, 500);
       form.reset();
-      this.router.navigate(['/casinos']);
-      this.msgAdd();
   }
 
   msgAdd(){
     this._snackBar.open('Casino agregado correctamente', '', {
       duration: 4000,
       horizontalPosition: 'center',
-      verticalPosition: 'top'
+      verticalPosition: 'top',
+      panelClass: ['custom-snackbar']
     });
   }
 

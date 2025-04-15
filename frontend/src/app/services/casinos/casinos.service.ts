@@ -1,7 +1,5 @@
-// src/app/services/casino/casino.service.ts
-
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';  // <-- Ya no necesitamos HttpHeaders
+import { HttpClient } from '@angular/common/http';
 import { Casino } from '../../models/casino';
 import { environment } from 'src/environments/environment';
 
@@ -21,20 +19,19 @@ export class CasinoService {
   casinos!: Casino[];
 
   getCasinos() {
-    return this.http.get<Casino[]>(this.url_api);  // <-- Ya no necesitamos pasar headers
+    return this.http.get<Casino[]>(this.url_api);
   }
 
   addCasino(casino: Casino) {
-    return this.http.post(this.url_api, casino);  // <-- Ya no necesitamos pasar headers
+    return this.http.post(this.url_api, casino);
   }
 
   updateCasino(casino: Casino) {
-    return this.http.put(`${this.url_api}/${casino.id}`, casino);  // <-- Ya no necesitamos pasar headers
+    return this.http.put(`${this.url_api}/${casino.id}`, casino);
   }
 
   deleteCasino(id: string) {
-    return this.http.delete(`${this.url_api}/${id}`);  // <-- Ya no necesitamos pasar headers
+    return this.http.delete(`${this.url_api}/${id}`);
   }
   
-  // Eliminar el método createHeaders ya que no lo necesitamos más
 }
