@@ -1,18 +1,17 @@
+version: "3.8"
+
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:latest
-    platform: linux/amd64  # Para Mac con Apple Silicon
-    container_name: sqlserver
-    ports:
-      - "0.0.0.0:1433:1433"
+    platform: linux/amd64
+    container_name: sqlserver_becasuv  # Nombre del contenedor del SQL Server
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "TuPasswordSeguro123"
-      MSSQL_PID: "Developer"  # Usar la edición Developer (más ligera)
+      MSSQL_PID: "Developer"
     volumes:
       - sqlserver_data:/var/opt/mssql
-      - sql_backups:/var/opt/mssql/backup   # Volumen nombrado para backups
-
+      - sql_backups:/var/opt/mssql/backup
     networks:
       - red_privada
     restart: always
@@ -23,7 +22,6 @@ services:
         reservations:
           memory: 6G
 
-  ## Servicio para inicializar la base de datos
   init-db:
     image: mcr.microsoft.com/mssql-tools
     platform: linux/amd64
@@ -33,7 +31,7 @@ services:
       - sqlserver
     volumes:
       - sqlserver_data:/var/opt/mssql
-      - sql_backups:/var/opt/mssql/backup # Montar el volumen de backups    
+      - sql_backups:/var/opt/mssql/backup
     command: >
       /bin/bash -c "
       echo 'Esperando a que SQL Server esté listo...' &&
@@ -123,63 +121,61 @@ services:
       echo 'Mostrando usuarios:' &&
       /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P TuPasswordSeguro123 -d becas_uv -Q 'SELECT * FROM users'
         "
+      
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    container_name: backend_becasuv  # Nombre del contenedor del Backend
+    restart: always
+    expose:
+      - "4000"  # Solo expone internamente, no a puertos externos
+    depends_on:
+      - sqlserver
+    networks:
+      - red_privada
+    environment:
+      - DB_USER=sa
+      - DB_PASSWORD=TuPasswordSeguro123
+      - DB_SERVER=sqlserver_becasuv  # Nombre del contenedor de SQL Server
+      - DB_NAME=becas_uv
+      - VIRTUAL_HOST=api.localhost
+      - VIRTUAL_PORT=4000
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    container_name: frontend_becasuv  # Nombre del contenedor del Frontend
+    restart: always
+    expose:
+      - "80"  # Solo expone internamente
+    networks:
+      - red_privada
+    environment:
+      - API_URL=http://backend_becasuv:4000/api  # Conexión interna con nombre del contenedor
+      - VIRTUAL_HOST=localhost
+      - VIRTUAL_PORT=80
 
   nginx-proxy:
     image: jwilder/nginx-proxy
     container_name: nginx-proxy
     restart: always
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - red_privada
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    command: ["forego", "start", "-r"]
-    environment:
-      - SERVER_TOKENS=off
-      - PROXY_CONNECT_TIMEOUT=300
-      - PROXY_SEND_TIMEOUT=300
-      - PROXY_READ_TIMEOUT=90m
-      - SEND_TIMEOUT=300
-      - CLIENT_MAX_BODY_SIZE=1024M
-    networks:
-      - red_proxy
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile.backend
-    restart: always
-    ports:
-      - "0.0.0.0:4000:4000/tcp"  # Mapeo para IPv4
     depends_on:
-      - sqlserver
-    networks:
-      - red_proxy
-      - red_privada
-    environment:
-      - DB_USER=sa
-      - DB_PASSWORD=TuPasswordSeguro123
-      - DB_SERVER=sqlserver
-      - DB_NAME=becas_uv
-      
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.frontend
-    restart: always
-    ports:
-      - "0.0.0.0:4200:4200"  # Mapeo para IPv4
-    networks:
-      - red_proxy
-      - red_privada
+      - frontend
+      - backend
 
 networks:
-  red_proxy:
-    external: true
-    name: nginx-proxy
   red_privada:
     driver: bridge
+
 volumes:
   sqlserver_data:
     driver: local
