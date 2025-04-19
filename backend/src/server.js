@@ -7,7 +7,8 @@ const PORT = process.env.PORT || 4000;
 
 // Middlewares
 app.use(cors({
-    origin: 'http://frontend_becasuv:80/api',
+    /* origin: 'http://frontend_becasuv:80', */
+    origin: 'http://localhost',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
