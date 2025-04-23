@@ -153,7 +153,7 @@ services:
     networks:
       - red_privada
     environment:
-      - API_URL=http://backend_becasuv:4000/api  # Conexión interna con nombre del contenedor
+      - API_URL=http://api.localhost  # Conexión interna con nombre del contenedor
       - VIRTUAL_HOST=localhost
       - VIRTUAL_PORT=80
 
