@@ -1,7 +1,7 @@
 import { app, PORT } from './server.js';
 
 try {
-    app.listen(PORT,'0.0.0.0', () => {
+    app.listen(PORT, () => {
         console.log(`Servidor corriendo en puerto ${PORT}`);
     });
 } catch (error) {
