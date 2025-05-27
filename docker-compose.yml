@@ -128,8 +128,8 @@ services:
       dockerfile: Dockerfile.backend
     container_name: backend_becasuv  # Nombre del contenedor del Backend
     restart: always
-    expose:
-      - "4000"  # Solo expone internamente, no a puertos externos
+    ports:
+      - "4000:4000"
     depends_on:
       - sqlserver
     networks:
