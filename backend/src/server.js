@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 4000;
 // Middlewares
 app.use(cors({
     /* origin: 'http://frontend_becasuv:80', */
-    origin: 'http://becas.uv.cl',
+    origin: 'http://becas-informatica.uv.cl',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
