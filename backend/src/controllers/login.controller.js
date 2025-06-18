@@ -1,20 +1,30 @@
 import { getConnection, sql } from '../database/connection.js';
 import { hashPassword, verifyPassword } from '../middlewares/hash';
 import { createToken } from '../middlewares/auth.js';
+import { body, validationResult } from 'express-validator';
+
+export const loginValidation = [
+    body('usuario').trim().notEmpty().withMessage('Usuario es requerido'),
+    body('password').trim().isLength({ min: 8 }).withMessage('La contraseña debe tener al menos 8 caracteres')
+];
+
+export const registerValidation = [
+    body('usuario').trim().notEmpty(),
+    body('password').isLength({ min: 8 }),
+    body('role').trim().notEmpty(),
+    body('casino').trim().notEmpty()
+];
 
 // Login de usuario
 export const loginUsuario = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ success: false, errors: errors.array() });
+    }
     try {
         //console.log('Recibiendo solicitud de login:', req.body);
         let isMatch = false;
         const { usuario, password } = req.body;
-        // Validación básica
-        if (!usuario || !password) {
-            return res.status(400).json({
-                success: false,
-                message: 'Usuario y contraseña son requeridos'
-            });
-        }
         const pool = await getConnection();
         const result = await pool.request()
             .input('usuario', sql.VarChar, usuario)
@@ -93,14 +103,9 @@ export const verUsuarioId = async (req, res) => {
 
 // Agregar nuevo usuario
 export const agregarUsuario = async (req, res) => {
-   let { usuario, password, role, casino } = req.body;
-
-   // Validación de campos
-   if (!usuario || !password || !role || !casino) {
-       return res.status(400).json({
-           success: false,
-           message: 'Usuario, contraseña, rol y casino son requeridos'
-       });
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+       return res.status(400).json({ success: false, errors: errors.array() });
    }
 
    if (password.length < 8) {
@@ -109,6 +114,7 @@ export const agregarUsuario = async (req, res) => {
            message: 'La contraseña debe tener al menos 8 caracteres'
        });
    }
+   let { usuario, password, role, casino } = req.body;
 
    try {
        // Si quieres deshabilitar el hashing para desarrollo, comenta esta línea

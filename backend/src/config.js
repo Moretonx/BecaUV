@@ -8,8 +8,8 @@ export default {
         password: process.env.DB_PASSWORD,
         server: process.env.DB_SERVER, // Nombre del servicio en docker-compose
         database: process.env.DB_DATABASE,
-        // config.js
-        apikey: 'BecasUVSecretKey',  // Esta es tu clave secreta
+        // Clave secreta para JWT
+        apikey: process.env.API_KEY || 'BecasUVSecretKey',
         options: {
             encrypt: false,
             trustServerCertificate: true,
