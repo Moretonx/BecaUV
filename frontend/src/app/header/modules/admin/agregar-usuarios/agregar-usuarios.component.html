@@ -38,9 +38,10 @@
                   type="password" 
                   class="form-control" 
                   name="password" 
-                  id="validation3" 
+                  id="validation3"
                   placeholder="Nueva contraseña" 
                   [(ngModel)]="adminService.selectUser.password"
+                minlength="8"
                 required>
               </div>
 

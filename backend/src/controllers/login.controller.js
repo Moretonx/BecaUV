@@ -77,8 +77,8 @@ export const verUsuarioId = async (req, res) => {
    try {
        const pool = await getConnection();
        const result = await pool.request()
-           .input('id', id)
-           .query('SELECT id, usuario, casino FROM alumnos WHERE id = @id');
+           .input('id', sql.Int, id)
+           .query('SELECT userID, usuario, role, casino FROM users WHERE userID = @id');
 
        res.json(result.recordset[0]);
    } catch (error) {
@@ -100,6 +100,13 @@ export const agregarUsuario = async (req, res) => {
        return res.status(400).json({
            success: false,
            message: 'Usuario, contraseña, rol y casino son requeridos'
+       });
+   }
+
+   if (password.length < 8) {
+       return res.status(400).json({
+           success: false,
+           message: 'La contraseña debe tener al menos 8 caracteres'
        });
    }
 
