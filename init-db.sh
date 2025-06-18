@@ -80,7 +80,7 @@ echo 'Insertando usuarios predeterminados...'
 /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P M4sK@2025! -d becas_uv -Q "
 IF NOT EXISTS (SELECT * FROM users WHERE usuario = 'Administrador')
 BEGIN
-    INSERT INTO users (usuario, password, role, casino) VALUES ('Administrador', '\$2b\$10\$GCjHUE6tloultpDc7PPkqufYj8slF3D17wtYf.af0GbQjjH0NoFgC', 'Administrador', 'Sin Casino');
+    INSERT INTO users (usuario, password, role, casino) VALUES ('Administrador', '\$2a\$10\$gE3wZfsgOVuN0WQghGwmT.9qP1R8FojZn2/BV7/zsPEc6Wl43Bi26', 'Administrador', 'Sin Casino');
 END
 "
 
