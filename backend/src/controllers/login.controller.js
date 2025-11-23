@@ -103,10 +103,10 @@ export const agregarUsuario = async (req, res) => {
        });
    }
 
-   if (password.length < 8) {
+   if (password.length < 5) {
        return res.status(400).json({
            success: false,
-           message: 'La contraseña debe tener al menos 8 caracteres'
+           message: 'La contraseña debe tener al menos 5 caracteres'
        });
    }
 
