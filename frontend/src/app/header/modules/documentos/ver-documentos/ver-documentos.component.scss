@@ -1,23 +1,29 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    min-height: 73vh;
+/* Contenedor principal */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 73vh;
+  padding-top: 1rem;
 }
 
+/* Estilo de elementos de lista */
 .mat-list-item {
-    color: rgba(0, 0, 0, 0.616);
+  color: rgba(0, 0, 0, 0.7);
 }
 
-.mat-list-item:hover{
-    color: rgb(54, 49, 49);
+.mat-list-item:hover {
+  color: #000;
 }
 
-.btn{
-    color: white;
-    border-color: #1312126c;
-    background-color: #106cbd;
+/* Botón UV */
+.btn {
+  color: #ffffff;
+  border-color: var(--uv-blue);
+  background-color: var(--uv-blue);
+  font-weight: 600;
 }
 
-.btn:hover{
-    background-color: #0f5999;
+.btn:hover {
+  background-color: var(--uv-blue-dark);
+  border-color: var(--uv-blue-dark);
 }

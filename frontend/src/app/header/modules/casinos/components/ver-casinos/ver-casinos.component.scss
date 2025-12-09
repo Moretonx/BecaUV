@@ -1,99 +1,122 @@
-.container-fluid{
-    display: flex;
-    flex-direction: column;
-    min-height: 70vh;
-    margin-top: 3%;
-
+/* ===== Layout principal ===== */
+:host {
+  display: block;
 }
 
-table{
-    width: 100%;
+:host .container-fluid {
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+  margin-top: 3%;
 }
 
-.delete{
-    border-color: #1312128f;
-    margin-left: 1.5%; 
+/* Tabla */
+:host table {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border-collapse: collapse;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-.agregar{
-    font-size: large;
-    margin-right: 1%;
-    margin-top: 1%;
-    color: white;
-    border-color: #1312126c;
-    background-color: #04549c;
+/* Botón eliminar casino */
+.delete {
+  background-color: #ffffff;
+  color: #c62828;
+  border: 1px solid #c62828;
+  margin-left: 1.5%;
+  font-weight: 600;
 }
 
-.agregar:hover{
-    background-color: #04559ce8;
+.delete:hover {
+  background-color: rgba(198, 40, 40, 0.08);
 }
 
-.mat-form-field {
-    font-size: 16px;
-    width: 80%;
+/* Ícono centrado */
+.icono {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-th.mat-header-cell, td.mat-cell {
-    text-align: center !important;
-    font-size: 14px;
+/* Botón "Agregar nuevo casino" */
+.agregar {
+  font-size: 1rem;
+  margin-right: 1%;
+  margin-top: 1%;
+  color: #ffffff;
+  border-color: var(--uv-blue);
+  background-color: var(--uv-blue);
+  font-weight: 600;
+}
+
+.agregar:hover {
+  background-color: var(--uv-blue-dark);
+  border-color: var(--uv-blue-dark);
+}
+
+/* Celdas centradas */
+th.mat-header-cell,
+td.mat-cell {
+  text-align: center !important;
+  font-size: 14px;
+}
+
+/* ===== Responsive ===== */
+
+@media screen and (max-width: 1080px) {
+  :host .container-fluid {
+    margin-top: 20%;
+  }
+}
+
+@media screen and (max-width: 428px) {
+  .delete {
+    width: 30px;
+    height: 30px;
+    padding: 0;
   }
 
-@media screen and (max-width: 1080px){
-    .container-fluid{
-        margin-top: 20%;
-    }
+  .icono {
+    font-size: 16px;
+  }
+
+  th.mat-header-cell,
+  td.mat-cell {
+    font-size: 11px;
+  }
+
+  .agregar {
+    font-size: 0.85rem;
+    margin-right: 2%;
+    margin-top: 2%;
+  }
+
+  :host .container-fluid {
+    margin-top: 30%;
+  }
 }
 
-@media screen and (max-width: 428px){
-    .delete{
-        width:30px;
-        height:30px;
-    }
-    .icono{
-        font-size: 16px;
-        display: flex;
-        justify-content: center;
-    }
+@media screen and (max-width: 400px) {
+  .delete {
+    width: 25px;
+    height: 25px;
+  }
 
-    th.mat-header-cell, td.mat-cell {
-        text-align: center !important;
-        font-size: 11px;
-      }
+  .icono {
+    font-size: 10px;
+  }
 
-    .agregar{
-        font-size: small;
-        margin-right: 2%;
-        margin-top: 2%;
-    }
+  th.mat-header-cell,
+  td.mat-cell {
+    font-size: 9px;
+  }
 
-    .container-fluid{
-        margin-top: 30%;
-    }
-}
+  .agregar {
+    font-size: 0.8rem;
+  }
 
-@media screen and (max-width: 400px){
-    .delete{
-        width:25px;
-        height:25px;
-    }
-    .icono{
-        font-size: 10px;
-        display: flex;
-        justify-content: center;
-    }
-
-    th.mat-header-cell, td.mat-cell {
-        text-align: center !important;
-        font-size: 9px;
-      }
-
-    .agregar{
-        font-size: small;
-        margin-right: 2%;
-        margin-top: 2%;
-    }
-
-    .container-fluid{
-        margin-top: 30%;
-    }
+  :host .container-fluid {
+    margin-top: 30%;
+  }
 }

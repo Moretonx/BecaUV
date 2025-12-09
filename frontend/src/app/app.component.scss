@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'Swiss721BT';
+  src: url('assets/fonts/swiss721/Swiss721BT-Roman.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Swiss721BT';
+  src: url('assets/fonts/swiss721/Swiss721BT-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+html,
+body {
+  font-family: 'Swiss721BT', 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --uv-blue: #00429A;
+  --uv-blue-dark: #003373;
+  --uv-gray-light: #f5f5f5;
+}
+
+.uv-footer {
+  background: #ffffff;
+  border-top: 3px solid var(--uv-blue);
+  padding: 0.75rem 2rem;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.uv-main {
+  min-height: calc(100vh - 120px);
+  background-color: var(--uv-gray-light);
+}
+
+/* Opcional: afinar navbar */
+.navbar {
+  font-size: 0.95rem;
+}

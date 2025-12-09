@@ -1,27 +1,29 @@
 <div class="col-md-4 agregar">
-    <div class="card">
-        <div class="card-body">
-            <form class="row" #casinoForm="ngForm" (ngSubmit)="agregarCasino(casinoForm)">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="mb-3">Datos del casino</h3>
 
-                <div class="mb-3">
-                  <label for="validation1" class="form-label">Nombre</label>
-                  <input 
-                    type="text" 
-                    class="form-control" 
-                    name="nombre" 
-                    id="validation1" 
-                    placeholder="Nombre del casino"
-                    [(ngModel)]="casinoService.selectCasino.nombre"
-                    required>
-                </div>
-
-                <div class="col-12" style="text-align: center;">
-                    <button class="btn btn-primary" type="submit" [disabled]="casinoForm.invalid">
-                    Agregar casino
-                    <mat-icon style="vertical-align: middle;">save_alt</mat-icon>
-                    </button>
-                </div>                      
-            </form>
+      <form class="row" #casinoForm="ngForm" (ngSubmit)="agregarCasino(casinoForm)">
+        <div class="mb-3">
+          <label for="validation1" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombre"
+            id="validation1"
+            placeholder="Nombre del casino"
+            [(ngModel)]="casinoService.selectCasino.nombre"
+            required
+          />
         </div>
+
+        <div class="col-12 text-center mt-2">
+          <button class="btn" type="submit" [disabled]="casinoForm.invalid">
+            Agregar casino
+            <mat-icon style="vertical-align: middle;">save_alt</mat-icon>
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>

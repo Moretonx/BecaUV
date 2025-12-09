@@ -8,24 +8,28 @@ import { LoginService } from '../services/login/login.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
   loading = false;
+  year: number = new Date().getFullYear();   // << Año dinámico para footer
 
   constructor(
     private router: Router,
     public loginService: LoginService
   ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  isLoading(){
+  logout() {
     this.loading = true;
-    setTimeout(() => {
-      localStorage.removeItem('token_login');
-      localStorage.removeItem('role');
-      this.router.navigate(['/login']);
-      this.loading = false;
-  },2000);
-  }
 
+    // Limpia sesión
+    localStorage.removeItem('token_login');
+    localStorage.removeItem('role');
+
+    // Espera solo para mostrar spinner
+    setTimeout(() => {
+      this.loading = false;
+      this.router.navigate(['/login']);
+    }, 800);
+  }
 }

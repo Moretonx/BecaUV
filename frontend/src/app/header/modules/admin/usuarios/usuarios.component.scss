@@ -1,80 +1,119 @@
-.row{
-    display: flex;
-    flex-direction: column;
-    min-height: 66vh;
-    margin-top: 5%;
+/* Contenedor principal del componente Usuarios */
+:host {
+  display: block;
 }
 
-table{
-    width: 100%;
+/* Layout general */
+:host .row {
+  display: flex;
+  flex-direction: column;
+  min-height: 66vh;
+  margin-top: 5%;
 }
 
-.edit{
-    background-color: #4a4ad6bd;
-    border-color: #1312128f;
-    margin-right: 1.5%;
+/* Tabla de usuarios */
+:host table {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border-collapse: collapse;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-.delete{
-    border-color: #1312128f;
-    margin-left: 1.5%; 
+/* Botón "Agregar usuario" */
+.agregar {
+  font-size: 1rem;
+  margin-right: 4%;
+  margin-top: 2%;
+  color: #ffffff;
+  border-color: var(--uv-blue);
+  background-color: var(--uv-blue);
+  font-weight: 600;
 }
 
-.agregar{
-    font-size: large;
-    margin-right: 4%;
-    margin-top: 2%;
-    color: white;
-    border-color: #1312126c;
-    background-color: #04549c;
+.agregar:hover {
+  background-color: var(--uv-blue-dark);
+  border-color: var(--uv-blue-dark);
 }
 
-.agregar:hover{
-    background-color: #04559ce8;
+/* Botón editar */
+.edit {
+  background-color: #ffffff;
+  color: var(--uv-blue);
+  border: 1px solid var(--uv-blue);
+  margin-right: 1.5%;
+  font-weight: 600;
 }
 
+.edit:hover {
+  background-color: rgba(0, 66, 154, 0.08);
+}
+
+/* Botón eliminar */
+.delete {
+  background-color: #ffffff;
+  color: #c62828;
+  border: 1px solid #c62828;
+  margin-left: 1.5%;
+  font-weight: 600;
+}
+
+.delete:hover {
+  background-color: rgba(198, 40, 40, 0.08);
+}
+
+/* Filtro / mat-form-field */
 .mat-form-field {
-    font-size: 16px;
-    width: 80%;
+  font-size: 16px;
+  width: 80%;
 }
 
-th.mat-header-cell, td.mat-cell {
-    text-align: center !important;
-    font-size: 14px;
+/* Celdas centradas */
+th.mat-header-cell,
+td.mat-cell {
+  text-align: center !important;
+  font-size: 14px;
+}
+
+/* Ícono centrado (para edit/delete) */
+.icono {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media screen and (max-width: 430px) {
+  .edit,
+  .delete {
+    width: 30px;
+    height: 30px;
+    padding: 0;
   }
 
-@media screen and (max-width: 430px){
-    .edit{
-        width:30px;
-        height:30px;
-    }
-    .delete{
-        width:30px;
-        height:30px;
-    }
-    .icono{
-        font-size: 16px;
-        display: flex;
-        justify-content: center;
-    }
+  .icono {
+    font-size: 16px;
+  }
 
-    .mat-form-field {
-        font-size: 12px;
-        width: 80%;
-    }
-    
-    th.mat-header-cell, td.mat-cell {
-        text-align: center !important;
-        font-size: 10px;
-      }
+  .mat-form-field {
+    font-size: 12px;
+    width: 100%;
+  }
 
-      .agregar{
-        font-size: small;
-        margin-right: 2%;
-        margin-top: 2%;
-    }
+  th.mat-header-cell,
+  td.mat-cell {
+    font-size: 10px;
+  }
 
-    .container-fluid{
-        margin-top: 25%;
-    }
+  .agregar {
+    font-size: 0.85rem;
+    margin-right: 2%;
+    margin-top: 2%;
+  }
+
+  .container-fluid {
+    margin-top: 25%;
+  }
 }

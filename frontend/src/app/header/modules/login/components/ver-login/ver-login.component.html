@@ -1,24 +1,47 @@
 <div class="body">
-    <div class="login">
-        <mat-card *ngIf="!loading">
-            <form [formGroup]="form" (ngSubmit)="ingresar()">
-                <h1>Iniciar sesión</h1>
-                <br>
-                <img src="assets/img/login.png" style="width: 30%; background-color: black; border-radius: 50px;">
-                <br>
-                <br>
-                <mat-form-field appearance="fill" style="width: 80%;">
-                    <mat-label>Usuario</mat-label>
-                    <input matInput formControlName="usuario">
-                </mat-form-field>
-                <mat-form-field appearance="fill" style="width: 80%;">
-                    <mat-label>Contraseña</mat-label>
-                    <input type="password" matInput formControlName="password">
-                </mat-form-field>
-                <br>
-                <button type="submit" mat-raised-button color="primary" style="height: 50px; width: 80%; background-color: #04549c;">Ingresar</button>
-            </form>
-        </mat-card>
-        <mat-spinner *ngIf="loading" class="loading" diameter="60"></mat-spinner>
-    </div>
+  <div class="login">
+
+    <mat-card *ngIf="!loading" class="login-card">
+
+      <!-- Encabezado tipo portal UV -->
+      <div class="portal-heading">
+        <img src="assets/img/uv.png" alt="Universidad de Valparaíso" class="uv-logo" />
+
+        <div class="portal-text">
+          <div class="portal-university">Universidad de Valparaíso</div>
+          <div class="portal-system">
+            Sistema de Gestión de Beca de Alimentación
+          </div>
+        </div>
+      </div>
+
+      <!-- Título de la tarjeta -->
+      <h1 class="titulo-uv">Iniciar sesión</h1>
+
+      <!-- Icono/imagen de login -->
+      <img src="assets/img/login.png" class="login-img" alt="Login" />
+
+      <!-- Formulario -->
+      <form [formGroup]="form" (ngSubmit)="ingresar()">
+
+        <mat-form-field appearance="fill" class="input-uv">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="usuario" autocomplete="off" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="input-uv">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput formControlName="password" autocomplete="off" />
+        </mat-form-field>
+
+        <button type="submit" class="btn-uv" [disabled]="form.invalid">
+          Ingresar
+          <mat-icon style="vertical-align: middle;">login</mat-icon>
+        </button>
+
+      </form>
+    </mat-card>
+
+    <mat-spinner *ngIf="loading" class="loading" diameter="60"></mat-spinner>
+  </div>
 </div>

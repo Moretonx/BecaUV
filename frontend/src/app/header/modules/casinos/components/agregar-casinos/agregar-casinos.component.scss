@@ -1,40 +1,67 @@
-.agregar{
-    margin: auto;
-    margin-top: 3%;
-    display: flex;
-    flex-direction: column;
-    min-height: 70vh;
+/* Contenedor principal del formulario */
+.agregar {
+  margin: 3% auto 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.btn{
-    color: white;
-    border-color: #1312126c;
-    background-color: #04549c;
+/* Botón UV solo dentro de este componente */
+.agregar .btn {
+  color: #ffffff;
+  border-color: var(--uv-blue);
+  background-color: var(--uv-blue);
+  font-weight: 600;
 }
 
-label{
-    font-weight: bold;
-    color: rgb(100, 93, 93);
+.agregar .btn:hover {
+  background-color: var(--uv-blue-dark);
+  border-color: var(--uv-blue-dark);
 }
 
-@media screen and (max-width: 412px){
-    .agregar{
-        margin-top: 20%;
-    }
+.agregar .btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.15rem rgba(0, 66, 154, 0.35);
+}
 
-    .form-label{
-        font-size: 12px;
-    }
+/* Labels del formulario */
+.agregar label {
+  font-weight: 700;
+  color: #555555;
+  margin-bottom: 0.25rem;
+}
 
-    input{
-        font-size: 11px;
-    }
+/* Inputs */
+.agregar input {
+  font-size: 0.95rem;
+}
 
-    .btn{
-        font-size: small;
-    }
+/* Responsive */
+@media screen and (max-width: 412px) {
+  .agregar {
+    margin-top: 20%;
+    padding: 1rem;
+  }
 
-    mat-icon{
-        font-size: 20px;
-    }
+  .agregar .form-label {
+    font-size: 12px;
+  }
+
+  .agregar input {
+    font-size: 11px;
+  }
+
+  .agregar .btn {
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
+  .agregar mat-icon {
+    font-size: 20px;
+  }
 }

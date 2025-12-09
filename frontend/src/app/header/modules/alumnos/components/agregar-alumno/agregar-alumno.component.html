@@ -1,66 +1,72 @@
 <div class="col-md-4 agregar">
-    <div class="card">
-        <div class="card-body">
-            <form class="row" #alumnoForm="ngForm" (ngSubmit)="agregarAlumno(alumnoForm)">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="mb-3">Datos del alumno</h3>
 
-              <input type="hidden" name="id" [(ngModel)]="alumnoService.selectAlumno.id">
+      <form class="row" #alumnoForm="ngForm" (ngSubmit)="agregarAlumno(alumnoForm)">
 
-                <div class="mb-3">
-                  <label for="validation1" class="form-label">Nombre</label>
-                  <input 
-                    type="text" 
-                    class="form-control" 
-                    name="nombre" 
-                    id="validation1" 
-                    placeholder="Nombre y Apellido"
-                    [(ngModel)]="alumnoService.selectAlumno.nombre"
-                  required>
-                </div>
+        <input
+          type="hidden"
+          name="id"
+          [(ngModel)]="alumnoService.selectAlumno.id"
+        />
 
-                <div class="mb-3">
-                  <label for="validation2" class="form-label">Rut (Sin puntos y con guión)</label>
-                  <input 
-                    type="text" 
-                    class="form-control" 
-                    name="rut" 
-                    id="validation2" 
-                    placeholder="Ej: 17760740-1" 
-                    [(ngModel)]="alumnoService.selectAlumno.rut"
-                  required>
-                </div>
-
-                <div class="mb-3">
-                  <label for="validation3" class="form-label">Cantidad</label>
-                  <input 
-                    type="number" 
-                    class="form-control" 
-                    name="cantidad" 
-                    id="validation3" 
-                    placeholder="Número de almuerzos" 
-                    [(ngModel)]="alumnoService.selectAlumno.cantidad"
-                  required>
-                </div>
-
-                <div [ngSwitch]="getCurrentUrl()">
-                  <div *ngSwitchCase="1">                    
-                    <div class="col-12" style="text-align: center;">
-                      <button class="btn btn-primary" type="submit">
-                        Editar alumno
-                        <mat-icon style="vertical-align: middle;">edit</mat-icon>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div *ngSwitchDefault>
-                    <div class="col-12" style="text-align: center;">
-                      <button class="btn btn-primary" type="submit" [disabled]="alumnoForm.invalid">
-                        Agregar alumno
-                        <mat-icon style="vertical-align: middle;">save_alt</mat-icon>
-                      </button>
-                    </div>                      
-                  </div>
-              </div>
-            </form>
+        <div class="mb-3">
+          <label for="validation1" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombre"
+            id="validation1"
+            placeholder="Nombre y Apellido"
+            [(ngModel)]="alumnoService.selectAlumno.nombre"
+            required
+          />
         </div>
+
+        <div class="mb-3">
+          <label for="validation2" class="form-label">Rut (Sin puntos y con guión)</label>
+          <input
+            type="text"
+            class="form-control"
+            name="rut"
+            id="validation2"
+            placeholder="Ej: 17760740-1"
+            [(ngModel)]="alumnoService.selectAlumno.rut"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="validation3" class="form-label">Cantidad</label>
+          <input
+            type="number"
+            class="form-control"
+            name="cantidad"
+            id="validation3"
+            placeholder="Número de almuerzos"
+            [(ngModel)]="alumnoService.selectAlumno.cantidad"
+            required
+          />
+        </div>
+
+        <div [ngSwitch]="getCurrentUrl()" class="text-center mt-2">
+          <div *ngSwitchCase="1">
+            <button class="btn" type="submit">
+              Editar alumno
+              <mat-icon style="vertical-align: middle;">edit</mat-icon>
+            </button>
+          </div>
+
+          <div *ngSwitchDefault>
+            <button class="btn" type="submit" [disabled]="alumnoForm.invalid">
+              Agregar alumno
+              <mat-icon style="vertical-align: middle;">save_alt</mat-icon>
+            </button>
+          </div>
+        </div>
+
+      </form>
     </div>
+  </div>
 </div>

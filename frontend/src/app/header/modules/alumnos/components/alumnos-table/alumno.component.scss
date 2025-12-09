@@ -1,122 +1,169 @@
-.container-fluid{
-    margin-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+/* ============================
+   Layout principal del módulo Alumnos
+   ============================ */
+:host {
+  display: block;
 }
 
-table{
-    width: 100%;
+:host .container-fluid {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.edit{
-    background-color: #4a4ad6bd;
-    border-color: #1312128f;
-    margin-right: 1.5%;
+/* Tabla */
+:host table {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border-collapse: collapse;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-.delete{
-    border-color: #1312128f;
-    margin-left: 1.5%; 
+/* ============================
+   Botones de acción (Editar / Eliminar)
+   ============================ */
+.edit {
+  background-color: #ffffff;
+  color: var(--uv-blue);
+  border: 1px solid var(--uv-blue);
+  margin-right: 1.5%;
+  font-weight: 600;
 }
 
-.agregar{
-    font-size: large;
-    margin-right: 3%;
-    margin-top: 1%;
-    color: white;
-    border-color: #1312126c;
-    background-color: #04549c;
+.edit:hover {
+  background-color: rgba(0, 66, 154, 0.1);
 }
 
-.agregar:hover{
-    background-color: #04559ce8;
+.delete {
+  background-color: #ffffff;
+  color: #c62828;
+  border: 1px solid #c62828;
+  margin-left: 1.5%;
+  font-weight: 600;
 }
 
+.delete:hover {
+  background-color: rgba(198, 40, 40, 0.1);
+}
+
+.icono {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ============================
+   Botón Agregar Alumno (UV)
+   ============================ */
+.agregar {
+  font-size: 1rem;
+  margin-right: 3%;
+  margin-top: 1%;
+  color: #ffffff;
+  border-color: var(--uv-blue);
+  background-color: var(--uv-blue);
+  font-weight: 600;
+}
+
+.agregar:hover {
+  background-color: var(--uv-blue-dark);
+  border-color: var(--uv-blue-dark);
+}
+
+/* ============================
+   Filtro / input
+   ============================ */
 .mat-form-field {
-    font-size: 16px;
-    width: 80%;
+  font-size: 16px;
+  width: 80%;
 }
 
 .filter {
-    text-align: center;
-    margin-top: 1%;
+  text-align: center;
+  margin-top: 1%;
 }
 
-th.mat-header-cell, td.mat-cell {
-    text-align: center !important;
-    font-size: 14px;
+/* Celdas centradas */
+th.mat-header-cell,
+td.mat-cell {
+  text-align: center !important;
+  font-size: 14px;
+}
+
+.view {
+  background-color: transparent;
+  border: none;
+  color: var(--uv-blue);
+}
+
+.view:hover {
+  background-color: rgba(0, 66, 154, 0.08);
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+
+@media screen and (max-width: 1080px) {
+  :host .container-fluid {
+    margin-top: 10%;
   }
 
-@media screen and (max-width: 1080px){
-    .container-fluid{
-        margin-top: 10%;
-    }
-
-    .agregar{
-        margin-right: 1%;
-        margin-top: 1%;
-    }
+  .agregar {
+    margin-right: 1%;
+  }
 }
 
-@media screen and (max-width: 428px){
-    .edit{
-        width:30px;
-        height:30px;
-    }
-    .delete{
-        width:30px;
-        height:30px;
-    }
-    .icono{
-        font-size: 16px;
-        display: flex;
-        justify-content: center;
-    }
+@media screen and (max-width: 428px) {
+  .edit,
+  .delete {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+  }
 
-    th.mat-header-cell, td.mat-cell {
-        text-align: center !important;
-        font-size: 11px;
-      }
+  .icono {
+    font-size: 16px;
+  }
 
-    .agregar{
-        font-size: small;
-        margin-right: 2%;
-        margin-top: 2%;
-    }
+  th.mat-header-cell,
+  td.mat-cell {
+    font-size: 11px;
+  }
 
-    .container-fluid{
-        margin-top: 20%;
-    }
+  .agregar {
+    font-size: 0.85rem;
+    margin-right: 2%;
+  }
+
+  :host .container-fluid {
+    margin-top: 20%;
+  }
 }
 
-@media screen and (max-width: 400px){
-    .edit{
-        width:25px;
-        height:25px;
-    }
-    .delete{
-        width:25px;
-        height:25px;
-    }
-    .icono{
-        font-size: 10px;
-        display: flex;
-        justify-content: center;
-    }
+@media screen and (max-width: 400px) {
+  .edit,
+  .delete {
+    width: 25px;
+    height: 25px;
+  }
 
-    th.mat-header-cell, td.mat-cell {
-        text-align: center !important;
-        font-size: 9px;
-      }
+  .icono {
+    font-size: 10px;
+  }
 
-    .agregar{
-        font-size: small;
-        margin-right: 2%;
-        margin-top: 2%;
-    }
+  th.mat-header-cell,
+  td.mat-cell {
+    font-size: 9px;
+  }
 
-    .container-fluid{
-        margin-top: 10%;
-    }
+  .agregar {
+    font-size: 0.8rem;
+  }
+
+  :host .container-fluid {
+    margin-top: 10%;
+  }
 }
