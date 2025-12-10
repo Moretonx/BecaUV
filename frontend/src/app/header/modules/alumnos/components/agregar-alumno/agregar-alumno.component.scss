@@ -43,6 +43,12 @@
   font-size: 0.95rem;
 }
 
+.titulo{
+  font-weight: bold;
+  color: var(--uv-blue);
+  text-align: center;
+}
+
 /* Responsive */
 @media screen and (max-width: 412px) {
   .agregar {

@@ -2,11 +2,6 @@
    Estilos UV para Header
    =============================== */
 
-/* Fuente UV global */
-* {
-  font-family: 'Swiss721BT', 'Helvetica Neue', Arial, sans-serif;
-}
-
 /* NAVBAR */
 .navbar {
   background-color: var(--uv-blue) !important;
@@ -28,20 +23,41 @@
   text-decoration-thickness: 2px;
 }
 
-/* BOTÓN CERRAR SESIÓN */
-.btn {
-  color: var(--uv-blue) !important;
-  background-color: white !important;
-  border: 2px solid white !important;
+/* CONTENEDOR BOTÓN CERRAR SESIÓN */
+.cerrar {
+  margin-left: auto;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+/* BOTÓN CERRAR SESIÓN UV */
+.logout-btn {
+  background-color: #ffffff;
+  color: var(--uv-blue);
   font-weight: 700;
+  border-radius: 30px;
+  padding: 10px 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  border: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
 }
 
-.btn:hover {
-  opacity: 0.85;
+.logout-btn mat-icon {
+  font-size: 22px;
+  margin-top: -1px;
+  color: var(--uv-blue);
 }
 
-.btn:focus {
-  opacity: 0.75;
+.logout-btn:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
 }
 
 /* LOGO UV */
@@ -56,6 +72,15 @@
   width: auto;
 }
 
+.navbar .container a {
+  color: #E8ECF5 !important; /* blanco con toque celeste */
+}
+
+.navbar .container a:hover {
+  text-decoration: underline;
+  text-decoration-color: #E8ECF5 !important;
+}
+
 /* SPINNER */
 .loading {
   display: flex;
@@ -68,7 +93,7 @@
 footer {
   background-color: #ffffff;
   color: #333;
-  border-top: 3px solid var(--uv-blue);
+  border-top: 2px solid var(--uv-blue);
   text-align: center;
   padding: 10px;
   width: 100%;
@@ -93,10 +118,5 @@ footer p {
 @media screen and (max-width: 480px) {
   .navbar-logo img {
     height: 34px;
-  }
-
-  .btn {
-    width: 100%;
-    margin-top: 10px;
   }
 }

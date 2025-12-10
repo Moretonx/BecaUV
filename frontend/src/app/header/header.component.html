@@ -32,13 +32,18 @@
         </li>
       </ul>
 
-      <button
-        *ngIf="loginService.isLogged()"
-        class="btn btn-light"
-        (click)="logout()"
-      >
-        Cerrar sesión <mat-icon>logout</mat-icon>
-      </button>
+      <div class="cerrar">
+        <button
+            *ngIf="loginService.isLogged()"
+            class="logout-btn"
+            type="button"
+            (click)="logout()"
+          >
+          <span>Cerrar sesión</span>
+          <mat-icon>logout</mat-icon>
+        </button>
+      </div>
+
 
     </div>
   </div>
