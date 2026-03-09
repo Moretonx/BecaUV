@@ -12,7 +12,7 @@ app.use(cors({
     const allowed = [
       'http://localhost:4200',
       'https://becauv-production.up.railway.app',
-      'https://becauv-production-393b.up.railway.app',
+      'https://frontend-production-f332.up.railway.app'
     ];
 
     const isRailway = /^https:\/\/becauv-production(-[a-z0-9]+)?\.up\.railway\.app$/.test(origin);
