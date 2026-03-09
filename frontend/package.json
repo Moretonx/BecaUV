@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "start:prod": "npx serve -s dist/frontend -l $PORT"
   },
   "private": true,
   "dependencies": {
@@ -22,17 +23,16 @@
     "@angular/router": "^14.0.0",
     "@popperjs/core": "^2.11.6",
     "@types/file-saver": "^2.0.7",
-    "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.0",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
     "jquery": "^3.6.1",
     "rxjs": "~7.5.0",
+    "serve": "^14.2.6",
     "tslib": "^2.3.0",
     "xlsx": "^0.18.5",
     "xlsx-style": "^0.8.13",
-    "zone.js": "~0.11.4",
-    "jsonwebtoken": "^9.0.2"  
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.1",
