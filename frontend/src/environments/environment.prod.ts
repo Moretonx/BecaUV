@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backend: 'https://becauv-production-393b.up.railway.app' 
+  backend: 'https://backend-production-dcf9.up.railway.app' 
 };
