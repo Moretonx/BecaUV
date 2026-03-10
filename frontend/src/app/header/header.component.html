@@ -24,7 +24,7 @@
     <div class="collapse navbar-collapse" id="navbarToggler">
 
       <ul *ngIf="loginService.isLogged()" class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="/">Alumnos</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/casinos">Casinos</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/documentos">Documentos</a></li>
         <li *ngIf="loginService.rolesAccess()" class="nav-item">
