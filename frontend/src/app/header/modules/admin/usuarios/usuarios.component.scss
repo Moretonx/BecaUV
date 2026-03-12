@@ -20,6 +20,11 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
+.titulo{
+  margin-left: 40%;
+  width: max-content;
+}
+
 /* Botón "Agregar usuario" */
 .agregar {
   font-size: 1rem;
@@ -116,4 +121,9 @@ td.mat-cell {
   .container-fluid {
     margin-top: 25%;
   }
+
+  .titulo{
+  margin-left: 0%;
+  width: max-content;
+}
 }
